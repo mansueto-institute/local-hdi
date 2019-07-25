@@ -8,6 +8,8 @@ library(tigris)
 library(tmap) 
 library(purr)
 
+#trivial edit
+
 #Generate variable that allows that later code to loop through all the states
 
 us <- unique(fips_codes$state)[1:51]
