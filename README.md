@@ -13,7 +13,7 @@ The goal of this project was to integrate data streams from the Centers For Dise
 ## Data 
 
 The Life Expectancy component of the HDI was calculated using tract-level life expectancy estimates from the CDC's USALEEP Project[(4)](https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html) 
-and County-Level Life Expectancy Estimates from teh Institute of Health Metrics and Evaluation. [(5)] (http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
+and County-Level Life Expectancy Estimates from teh Institute of Health Metrics and Evaluation. [(5)](http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
 USALEEP calculated a single tract-level estimate for 2010-2015, and the IHME calculated county-level estimates for every year from 1980 to 2014.
 
 The Education Component of the HDI was calculated using tract level estimates for total population, educational attainment for population over 25 years of age, and school enrollment ratios for population under 25 years old,  from the American Community Survey 5 Year Estimates from 2017.
@@ -70,7 +70,7 @@ The education index is a composite of two different indexes, the mean years of s
 #### Mean Years of Schooling Index
 
 The mean years of schooling index is the average number of years of schooling for people 25 and older. 
-This is calculated by converting the educational attainment levels of the population into average years of schooling as set by International Standard Classification of Education (ISCED) [(12)](http://uis.unesco.org/en/topic/international-standard-classification-education-isced)
+This is calculated by converting the educational attainment levels of the population into average years of schooling as set by International Standard Classification of Education (ISCED) [(13)](http://uis.unesco.org/en/topic/international-standard-classification-education-isced)
 This value is then put into the index, which is as follows: 
 
 MYSI= MYS/ 15 
@@ -123,3 +123,4 @@ The code for calculating the Human Development Index can be found here: [HDI]()
 Created by Suraj (Neil) Sheth
 
 ## License 
+MIT
