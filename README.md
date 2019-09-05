@@ -18,13 +18,13 @@ USALEEP calculated a single tract-level estimate for 2010-2015, and the IHME cal
 
 The Education Component of the HDI was calculated using tract level estimates for total population, educational attainment for population over 25 years of age, and school enrollment ratios for population under 25 years old,  from the American Community Survey 5 Year Estimates from 2017.
 These reflected estimates from the 2013-2017 time frame. 
-Example from Alabama [(6)] (https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_17_5YR_S1501&prodType=table)  
-The data was extracted using the tidycensus package for the Census Bureau API [(7)] (https://walkerke.github.io/tidycensus/articles/basic-usage.html)
+Example from Alabama [(6)](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_17_5YR_S1501&prodType=table)  
+The data was extracted using the tidycensus package for the Census Bureau API [(7)](https://walkerke.github.io/tidycensus/articles/basic-usage.html)
 
 The Income Component of the HDI was calculated using data from the US Bureau of Economic Analysis and ACS 5-year estimates. 
 Gross National Income for 2015 (approx $18.7 trillion) was taken from Federal Reserve of St. Louis [(8)](https://fred.stlouisfed.org/series/MKTGNIUSA646NWDB) and World Bank [(9)](https://data.worldbank.org/indicator/NY.GNP.MKTP.CD?locations=US) estimates.
-GDP by County estimates for 2012 -2015 was downloaded from the US BEA website. [(9)] (https://www.bea.gov/data/gdp/gdp-county) 
-National GDP estimates for 2015, as calculated by the US BEA, were then taken from the Federal Reserve of St. Louis website [(10)](https://fred.stlouisfed.org/series/GDPA) [(11)] (https://fred.stlouisfed.org/release/tables?rid=53&eid=41047&od=2015-01-01#)
+GDP by County estimates for 2012 -2015 was downloaded from the US BEA website. [(10)](https://www.bea.gov/data/gdp/gdp-county) 
+National GDP estimates for 2015, as calculated by the US BEA, were then taken from the Federal Reserve of St. Louis website [(11)](https://fred.stlouisfed.org/series/GDPA)[(12)](https://fred.stlouisfed.org/release/tables?rid=53&eid=41047&od=2015-01-01#)
 County and Census Tract Aggregate Income estimates for 2015, as well as tract level Population estimates, were taken from the American Community Survey 5 Year Estimates from 2015.
 
 ## Methods/Definitions
@@ -70,7 +70,7 @@ The education index is a composite of two different indexes, the mean years of s
 #### Mean Years of Schooling Index
 
 The mean years of schooling index is the average number of years of schooling for people 25 and older. 
-This is calculated by converting the educational attainment levels of the population into average years of schooling as set by International Standard Classification of Education (ISCED) [(11)] (http://uis.unesco.org/en/topic/international-standard-classification-education-isced)
+This is calculated by converting the educational attainment levels of the population into average years of schooling as set by International Standard Classification of Education (ISCED) [(12)](http://uis.unesco.org/en/topic/international-standard-classification-education-isced)
 This value is then put into the index, which is as follows: 
 
 MYSI= MYS/ 15 
