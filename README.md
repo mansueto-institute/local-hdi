@@ -1,7 +1,7 @@
 # Neighborhood-Level Human Development Index
 Goal: Calculate the Human Development Index at the Census tract level
 
-##Research Question 
+## Research Question 
 As stated by the UN, “The Human Development Index is a summary measure of average achievement in key dimensions of human development”. 
 [(1)](http://hdr.undp.org/en/content/human-development-index-hdi)
 Constructing the HDI at the local level will help bridge the ideas of "neighborhood effects" in Sociology with a "capabilities approach" theory of human development and inequality in economics and political science. 
@@ -10,7 +10,7 @@ Constructing the HDI at the local level will help bridge the ideas of "neighborh
 The goal of this project was to integrate data streams from the Centers For Disease Control, US Bureau of Economic Analysis, and the US Census Bureau to construct the HDI at the census tract level, in order identify disparities in health, education, and income between different neighborhoods across the US.
 
 
-##Data 
+## Data 
 
 The Life Expectancy component of the HDI was calculated using tract-level life expectancy estimates from the CDC's USALEEP Project[(4)](https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html) 
 and County-Level Life Expectancy Estimates from teh Institute of Health Metrics and Evaluation. [(5)] (http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
@@ -27,13 +27,13 @@ GDP by County estimates for 2012 -2015 was downloaded from the US BEA website. [
 National GDP estimates for 2015, as calculated by the US BEA, were then taken from the Federal Reserve of St. Louis website [(10)](https://fred.stlouisfed.org/series/GDPA) [(11)] (https://fred.stlouisfed.org/release/tables?rid=53&eid=41047&od=2015-01-01#)
 County and Census Tract Aggregate Income estimates for 2015, as well as tract level Population estimates, were taken from the American Community Survey 5 Year Estimates from 2015.
 
-##Methods/Definitions
+## Methods/Definitions
 
 The Human Development Index is the geometric mean of three indexes- the life expectancy index, the education index, and the income index. 
 Each of these indices as internationally set "goalposts" designating certain values as upper and lower bounds. 
 To allow comparisons between local US neighborhood HDIs and International HDIs, we have kept the same goalposts as the UN Development Program (UNDP) when calculating our HDI.
 
-###Life Expectancy Index
+### Life Expectancy Index
 Census Tract Level estimates of Life expectancy were taken from the USALEEP study.
 These estimates do not include LE estimates for Maine and Wisconsin, which will be released later this year. 
 County-level Life expectancy estimates (calculated by the Institute for Health Metrics and Evaluation) were substituted for tracts that did not have Life Expectancy values calculated by USALEEP. 
@@ -45,7 +45,7 @@ The equation for the index is as follows:
 
 85 years old is the upper bound for life expectancy, and 20 years is the lower bound. 
 
-###Income Index 
+### Income Index 
 
 At the international level, Gross National Income is used to calculate the income index.
 To Keep our measures consistent with international standards, we took Gross National Income and down allocated it to each county based on county share of national GDP. 
@@ -63,11 +63,11 @@ These values were then used to calculate an Income Index for each census tract, 
 
 $100 is the lower bound for yearly income, and $75,000 is the upper bound.
 
-###Education Index
+### Education Index
 
 The education index is a composite of two different indexes, the mean years of schooling index and the expected years of schooling index. 
 
-####Mean Years of Schooling Index
+#### Mean Years of Schooling Index
 
 The mean years of schooling index is the average number of years of schooling for people 25 and older. 
 This is calculated by converting the educational attainment levels of the population into average years of schooling as set by International Standard Classification of Education (ISCED) [(11)] (http://uis.unesco.org/en/topic/international-standard-classification-education-isced)
@@ -77,7 +77,7 @@ MYSI= MYS/ 15
 
 15 years is the goalpost for mean years of education
 
-####Expected Years of Schooling Index
+#### Expected Years of Schooling Index
 
 The expected years of schooling index is the number of years of schooling the population under 25 years old is expected to achieve, based on current enrollment rates. 
 The enrollment rate for each age group is calculated, and then multiplied by the number of years they are expected to have been in school. 
@@ -94,20 +94,20 @@ These values are then summed and then put in the expected years of education ind
 
 18 years is the goalpost for expected years of education.
 
-####Calculating Final Education Index
+#### Calculating Final Education Index
 
 The values for MYSI and EYSI for each tract are then averaged for the education index '
 
 >EI= (MYSI+EYSI)/2
 
-###Computing Final HDI 
+### Computing Final HDI 
 
 The HDI is a geometric mean of the 3 above indices: 
 
 >HDI = (LEI+ EI+ II) ^ (1/3)
 
 
-##Code 
+## Code 
 
 The code for calculating the Life Expectancy Index can be found here: [Life Expectancy Index]()
 The code for calculating the Mean Years of Education Index can be found here: [Mean Years of Education Index](https://github.com/mansueto-institute/local-hdi/blob/master/mean_edu_index.R)
@@ -117,9 +117,9 @@ The code for calculating the Income Index can be found here: [Income Index]()
 The code for calculating the Human Development Index can be found here: [HDI]()
 
 
-##Output 
+## Output 
 
-##Author 
-Created by Neil Sheth
+## Author 
+Created by Suraj (Neil) Sheth
 
-##License 
+## License 
