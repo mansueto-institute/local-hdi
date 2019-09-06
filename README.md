@@ -4,7 +4,7 @@ Goal: Calculate the Human Development Index at the Census tract level
 ## Research Question 
 As stated by the UN, “The Human Development Index is a summary measure of average achievement in key dimensions of human development”. 
 [(1)](http://hdr.undp.org/en/content/human-development-index-hdi)
-Constructing the HDI at the local level will help bridge the ideas of "neighborhood effects" in Sociology with a "capabilities approach" theory of human development and inequality in economics and political science. 
+Constructing the HDI at the local level will help bridge the ideas of "neighborhood effects" in Sociology with the Capabilities Approach of Human Development in economics and political science. 
 [(2)](https://scholar.harvard.edu/sampson/filter_by/neighborhood-effects) 
 [(3)](https://www.iep.utm.edu/sen-cap/)
 The goal of this project was to integrate data streams from the Centers For Disease Control, US Bureau of Economic Analysis, and the US Census Bureau to construct the HDI at the census tract level, in order identify disparities in health, education, and income between different neighborhoods across the US.
@@ -13,7 +13,7 @@ The goal of this project was to integrate data streams from the Centers For Dise
 ## Data 
 
 The Life Expectancy component of the HDI was calculated using tract-level life expectancy estimates from the CDC's USALEEP Project[(4)](https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html) 
-and County-Level Life Expectancy Estimates from teh Institute of Health Metrics and Evaluation. [(5)](http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
+and County-Level Life Expectancy Estimates from the Institute of Health Metrics and Evaluation. [(5)](http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
 USALEEP calculated a single tract-level estimate for 2010-2015, and the IHME calculated county-level estimates for every year from 1980 to 2014.
 
 The Education Component of the HDI was calculated using tract level estimates for total population, educational attainment for population over 25 years of age, and school enrollment ratios for population under 25 years old,  from the American Community Survey 5 Year Estimates from 2017.
