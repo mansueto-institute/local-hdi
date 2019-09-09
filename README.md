@@ -109,11 +109,11 @@ The HDI is a geometric mean of the 3 above indices:
 
 ## Code 
 
-The code for calculating the Life Expectancy Index can be found here: [Life Expectancy Index]()
+The code for calculating the Life Expectancy Index can be found here: [Life Expectancy Index](https://github.com/mansueto-institute/local-hdi/blob/master/life_expectancy_index.R)
 The code for calculating the Mean Years of Education Index can be found here: [Mean Years of Education Index](https://github.com/mansueto-institute/local-hdi/blob/master/mean_edu_index.R)
 The code for calculating the Expected Years of Education Index can be found here: [Expected Years of Education Index](https://github.com/mansueto-institute/local-hdi/blob/master/expected_edu_index.R)
 The code for calculating the Final Education Index can be found here:[Final Education Index ](https://github.com/mansueto-institute/local-hdi/blob/master/final_edu_index.R)
-The code for calculating the Income Index can be found here: [Income Index]() 
+The code for calculating the Income Index can be found here: [Income Index](https://github.com/mansueto-institute/local-hdi/blob/master/income_index.R) 
 The code for calculating the Human Development Index can be found here: [HDI]()
 
 
