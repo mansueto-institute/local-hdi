@@ -21,20 +21,20 @@ us <- unique(fips_codes$state)[1:51]
 #Get data for male students in public schools ages 5 to 9, male students in private schools ages 5 to 9, 
 #female students in public schools ages 5 to 9, and female students in private schools ages 5 to 9
 
-malpub5to9<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpub5to9<- map_df(us, function(x) { get_acs(geography = "county", 
                      variables = c( malpub5to9= "B14003_005"), 
                      state = x) })
 
-malpri5to9 <- map_df(us, function(x) { get_acs(geography = "tract", 
+malpri5to9 <- map_df(us, function(x) { get_acs(geography = "county", 
                       variables = c( malpri5to9= "B14003_014"), 
                       state = x) })
 
 
-fempub5to9 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempub5to9 <- map_df(us, function(x) { get_acs(geography = "county", 
                       variables = c( fempub5to9= "B14003_033"), 
                       state = x) })
 
-fempri5to9 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempri5to9 <- map_df(us, function(x) { get_acs(geography = "county", 
                       variables = c( fempri5to9= "B14003_042"), 
                       state = x) })
 
@@ -48,11 +48,11 @@ Totalstu5to9$totalenrolled5to9 <- (malpub5to9$estimate)+ (malpri5to9$estimate)+
 
 #Calculate total population of 5 to 9 yr olds 
 
-totmal5to9 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totmal5to9 <- map_df(us, function(x) { get_acs(geography = "county", 
                       variables = c( totmal5to9= "B01001_004"), 
                       state = x) })
 
-totfem5to9 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totfem5to9 <- map_df(us, function(x) { get_acs(geography = "county", 
                       variables = c( totfem5to9= "B01001_028"), 
                       state = x) })
 
@@ -77,20 +77,20 @@ expectedu$enroll5to9 <- (expectedu$totalenrolled5to9)/ (expectedu$totalpop5to9)
 #Get data for male students in public schools ages 10 to 14, male students in private schools ages 10 to 14, 
 #female students in public schools ages 10 to 14, and female students in private schools ages 10 to 14
 
-malpub10to14<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpub10to14<- map_df(us, function(x) { get_acs(geography = "county", 
                        variables = c( malpub10to14= "B14003_006"), 
                        state = x) })
 
-malpri10to14 <- map_df(us, function(x) { get_acs(geography = "tract", 
+malpri10to14 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( malpri10to14= "B14003_015"), 
                         state = x) })
 
 
-fempub10to14 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempub10to14 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempub10to14= "B14003_034"), 
                         state = x) })
 
-fempri10to14 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempri10to14 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempri10to14= "B14003_043"), 
                         state = x) })
 
@@ -104,11 +104,11 @@ Totalstu10to14$totalenrolled10to14 <- (malpub10to14$estimate)+ (malpri10to14$est
 
 #Calculate total population of 10 to 14 yr olds 
 
-totmal10to14 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totmal10to14 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totmal10to14= "B01001_005"), 
                         state = x) })
 
-totfem10to14 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totfem10to14 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totfem10to14= "B01001_029"), 
                         state = x) })
 
@@ -136,36 +136,36 @@ expectedu$enroll10to14 <- (expectedu$totalenrolled10to14)/ (expectedu$totalpop10
 #male students in public colleges ages 15 to 17, male students in private colleges ages 15 to 17,
 #female students in public colleges ages 15 to 17, and female students in private colleges ages 15 to 17,
 
-malpub15to17<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpub15to17<- map_df(us, function(x) { get_acs(geography = "county", 
                        variables = c( malpub15to17= "B14003_007"), 
                        state = x) })
 
-malpri15to17 <- map_df(us, function(x) { get_acs(geography = "tract", 
+malpri15to17 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( malpri15to17= "B14003_016"), 
                         state = x) })
 
 
-fempub15to17 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempub15to17 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempub15to17= "B14003_035"), 
                         state = x) })
 
-fempri15to17 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempri15to17 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempri15to17= "B14003_044"), 
                         state = x) })
 
-malpubcol15to17<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpubcol15to17<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( malpubcol15to17= "B14004_004"), 
                           state = x) })
 
-malpricol15to17<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpricol15to17<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( malpricol15to17= "B14004_009"), 
                           state = x) })
 
-fempubcol15to17<- map_df(us, function(x) { get_acs(geography = "tract", 
+fempubcol15to17<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( fempubcol15to17= "B14004_020"), 
                           state = x) })
 
-fempricol15to17<- map_df(us, function(x) { get_acs(geography = "tract", 
+fempricol15to17<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( fempricol15to17= "B14004_025"), 
                           state = x) })
 
@@ -182,11 +182,11 @@ Totalstu15to17$totalenrolled15to17 <- (malpub15to17$estimate)+ (malpri15to17$est
 
 #Calculate total population of 15 to 17 yr olds 
 
-totmal15to17 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totmal15to17 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totmal15to17= "B01001_006"), 
                         state = x) })
 
-totfem15to17 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totfem15to17 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totfem15to17= "B01001_030"), 
                         state = x) })
 
@@ -214,20 +214,20 @@ expectedu$enroll15to17 <- (expectedu$totalenrolled15to17)/ (expectedu$totalpop15
 #female students in public schools ages 18 to 19, and female students in private schools ages 18 to 19, 
 
 
-malpub18to19<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpub18to19<- map_df(us, function(x) { get_acs(geography = "county", 
                        variables = c( malpub18to19= "B14003_008"), 
                        state = x) })
 
-malpri18to19 <- map_df(us, function(x) { get_acs(geography = "tract", 
+malpri18to19 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( malpri18to19= "B14003_017"), 
                         state = x) })
 
 
-fempub18to19 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempub18to19 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempub18to19= "B14003_036"), 
                         state = x) })
 
-fempri18to19 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempri18to19 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempri18to19= "B14003_045"), 
                         state = x) })
 
@@ -237,20 +237,20 @@ fempri18to19 <- map_df(us, function(x) { get_acs(geography = "tract",
 #female students in public schools ages 20 to 24, and female students in private schools ages 20 to 24, 
 
 
-malpub20to24<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpub20to24<- map_df(us, function(x) { get_acs(geography = "county", 
                        variables = c( malpub20to24= "B14003_009"), 
                        state = x) })
 
-malpri20to24 <- map_df(us, function(x) { get_acs(geography = "tract", 
+malpri20to24 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( malpri20to24= "B14003_018"), 
                         state = x) })
 
 
-fempub20to24 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempub20to24 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempub20to24= "B14003_037"), 
                         state = x) })
 
-fempri20to24 <- map_df(us, function(x) { get_acs(geography = "tract", 
+fempri20to24 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( fempri20to24= "B14003_046"), 
                         state = x) })
 
@@ -258,19 +258,19 @@ fempri20to24 <- map_df(us, function(x) { get_acs(geography = "tract",
 #female students in public colleges ages 18 to 24, and female students in private colleges ages 18 to 24,
 
 
-malpubcol18to24<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpubcol18to24<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( malpubcol18to24= "B14004_005"), 
                           state = x) })
 
-malpricol18to24<- map_df(us, function(x) { get_acs(geography = "tract", 
+malpricol18to24<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( malpricol18to24= "B14004_010"), 
                           state = x) })
 
-fempubcol18to24<- map_df(us, function(x) { get_acs(geography = "tract", 
+fempubcol18to24<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( fempubcol18to24= "B14004_021"), 
                           state = x) })
 
-fempricol18to24<- map_df(us, function(x) { get_acs(geography = "tract", 
+fempricol18to24<- map_df(us, function(x) { get_acs(geography = "county", 
                           variables = c( fempricol18to24= "B14004_026"), 
                           state = x) })
 
@@ -287,35 +287,35 @@ Totalstu18to24$totalenrolled18to24 <- (malpub18to19$estimate)+ (malpri18to19$est
 
 #Calculate total population of 18 to 24 yr olds 
 
-totmal18to19 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totmal18to19 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totmal18to19= "B01001_007"), 
                         state = x) })
 
-totmal20 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totmal20 <- map_df(us, function(x) { get_acs(geography = "county", 
                     variables = c( totmal20= "B01001_008"), 
                     state = x) })
 
-totmal21 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totmal21 <- map_df(us, function(x) { get_acs(geography = "county", 
                     variables = c( totmal21= "B01001_009"), 
                     state = x) })
 
-totmal22to24 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totmal22to24 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totmal22to24= "B01001_010"), 
                         state = x) })
 
-totfem18to19 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totfem18to19 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totfem18to19= "B01001_031"), 
                         state = x) })
 
-totfem20 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totfem20 <- map_df(us, function(x) { get_acs(geography = "county", 
                     variables = c( totfem20= "B01001_032"), 
                     state = x) })
 
-totfem21<- map_df(us, function(x) { get_acs(geography = "tract", 
+totfem21<- map_df(us, function(x) { get_acs(geography = "county", 
                    variables = c( totfem21= "B01001_033"), 
                    state = x) })
 
-totfem22to24 <- map_df(us, function(x) { get_acs(geography = "tract", 
+totfem22to24 <- map_df(us, function(x) { get_acs(geography = "county", 
                         variables = c( totfem22to24= "B01001_034"), 
                         state = x) })
 
