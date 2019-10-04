@@ -6,7 +6,7 @@ library(tidyverse)
 
 #Download Life Expectancy estimates by County from IHME website 
 #(http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
-#(Select the first excel document in the "Files" tab)
+#(Select the first excel document in the "Files" tab, import with "location" line as first row)
 
 #Create new dataframe with only county names, FIPS codes, and calculated life expectancies for 2014
 
