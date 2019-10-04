@@ -47,8 +47,8 @@ The equation for the index is as follows:
 
 ### Income Index 
 
-At the international level, Gross National Income is used to calculate the income index.
-To Keep our measures consistent with international standards, we took Gross National Income and down allocated it to each county based on county share of national GDP. 
+The UN uses Gross National Income is used to calculate the income index.
+To keep our measures consistent with international standards, the Gross National Income for the US in 2015 was down allocated to each US county based on county share of national GDP. 
 We then down allocated it further to tracts based on aggregate income for each tract over aggregate income for the county. 
 
 > Tract Level Gross National Income = (2015 US GNI) x  (2015 County GDP/2015 US GDP) x (2015 Census Tract Aggregate Income/ 2015 County Aggregate Income)
@@ -75,7 +75,7 @@ This value is then put into the index, which is as follows:
 
 MYSI= MYS/ 15 
 
-15 years is the goalpost for mean years of education
+For the purposes of our study, we calculated the mean education index at the census tract level to capture the average education of adults in each tract.
 
 #### Expected Years of Schooling Index
 
@@ -92,7 +92,7 @@ These values are then summed and then put in the expected years of education ind
 
 > EYSI= EYS/18 
 
-18 years is the goalpost for expected years of education.
+For our study, we calculated the expected education index at the county level and then used the average county index for each tract. This was done to account for the fact that many children in the US often go to school in neighboring census tracts within their county. 
 
 #### Calculating Final Education Index
 
