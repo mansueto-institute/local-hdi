@@ -1,8 +1,4 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 # Neighborhood-Level Human Development Index
 Goal: Calculate the Human Development Index at the Census tract level
 
