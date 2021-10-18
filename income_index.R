@@ -13,8 +13,8 @@ us <- unique(fips_codes$state)[1:51]
 
 
 aggregate_tract_income_2015 <- map_df(us, function(x) {get_acs(geography = "tract", 
-                                      variables = c(aggregate_tract_income = "B19313_001"), year = 2015,
-                                      state = x) 
+                                                               variables = c(aggregate_tract_income = "B19313_001"), year = 2015,
+                                                               state = x) 
 })
 
 
@@ -24,105 +24,31 @@ newaggregate_tract_income_2015 <- aggregate_tract_income_2015 %>%
   select('GEOID', 'NAME', 'estimate') %>% 
   rename('Aggregate Tract Income 2015'= 'estimate')
 
-#Download Aggregate Income for US Counties in 2015
+#Sum all tract incomes to get an aggregate national income 
+newaggregate_tract_income_2015$national_aggregate_income <- 
+  sum(newaggregate_tract_income_2015$`Aggregate Tract Income 2015`, na.rm = TRUE)
 
-aggregate_county_income_2015 <- map_df(us, function(x) {get_acs(geography = "county", 
-                                       variables = c(aggregate_tract_income = "B19313_001"), year =2015,
-                                       state = x) 
-})
+#Create a tract fraction of the natonal aggregate income 
 
-
-#Simplify and organize the data 
-
-newaggregate_county_income_2015 <- aggregate_county_income_2015 %>% 
-  select('GEOID', 'NAME', 'estimate') %>% 
-  rename('Aggregate County Income 2015'= 'estimate', 
-         'census_county_fips'="GEOID")
-
-#Create a new column with county census_county_fips for census tracts using frst 5 digits of GEOIDs
-
-newaggregate_tract_income_2015$census_county_fips <- substr(newaggregate_tract_income_2015$GEOID, 1,5)
+newaggregate_tract_income_2015$fraction_of_nat_income <- 
+  ((newaggregate_tract_income_2015$`Aggregate Tract Income 2015`)/(newaggregate_tract_income_2015$national_aggregate_income))
 
 
-#Join the 2015 Aggregate Tract Income with the 2015 County Aggregate Income 
-GNI_by_Census_tract <- left_join(newaggregate_tract_income_2015, newaggregate_county_income_2015,
-                                 by= "census_county_fips")
+#Create column with 2015 National GNI value in 2011 $ PPP (https://data.un.org/Data.aspx?q=GNI&d=WDI&f=Indicator_Code%3aNY.GNP.MKTP.PP.KD)
+#The UN's 2016 HDI report used GNI in 2011 $ PPP (http://hdr.undp.org/sites/default/files/hdr_2016_statistical_annex.pdf) in 2015, 
+#so that is what we will use here 
+newaggregate_tract_income_2015$National_GNI_2015 <- 19096853723915.5
 
-#Convert Census FIPS codes to a numeric for easier merging
-GNI_by_Census_tract$census_county_fips <- as.numeric(GNI_by_Census_tract$census_county_fips)
+#Caluclate Tract GNI by multiplying income fraction by National GNI
 
+newaggregate_tract_income_2015$Tract_GNI <- 
+  (newaggregate_tract_income_2015$National_GNI_2015)*
+  (newaggregate_tract_income_2015$fraction_of_nat_income)
 
-
-#Next, load in the census- BEA county FIPS crosswalk(file will be titled "CountyCrosswalkFull")
-#Create a dataframe with the crosswalk between census and BEA FIPS codes
-census_bea_crosswalk <- CountyCrosswalkFull[,c(1,2,3,4)]
-
-#Add crosswalk to GNI dataframe
-GNI_by_Census_tract <- left_join(GNI_by_Census_tract, census_bea_crosswalk, by = "census_county_fips")
-
-####Step 3: Add in Values for National GNI and GDP####
-
-#Create a column with the value of the Gross National Income of the US in 2018 (taken from https://fred.stlouisfed.org/series/MKTGNIUSA646NWDB 
-#and https://data.worldbank.org/indicator/NY.GNP.MKTP.CD?locations=US)
-
-GNI_by_Census_tract$National_GNI_2015 <- 18700478000000
-
-#Create a column with the value of GDP from 2018 ( source: https://fred.stlouisfed.org/series/GDPA#0, and 
-#https://fred.stlouisfed.org/release/tables?rid=53&eid=41047&od=2015-01-01#)
-
-GNI_by_Census_tract$National_GDP_2015 <- 18224780000000
-
-
-GNI_by_Census_tract <- GNI_by_Census_tract[,c(1,4,8,2,10,11,6,3)]
-
-
-#####Step 4: Add in County GDP Information from BEA#####
-
-
-#Download the GDP by County file from BEA website (https://www.bea.gov/data/gdp/gdp-county). 
-#The file will be titled "GCP_Release_1" 
-#First, rename the relevant column "2015 County GDP
-
-colnames(GCP_Release_1)[colnames(GCP_Release_1)=="..9"] <- "2015 County GDP"
-
-#Simplify GDP file
-
-GDP <-subset(GCP_Release_1, IndustryName == 'All Industries', select = c("FIPS","Countyname","Postal","LineCode", "IndustryName", "2015 County GDP"))
-
-countygdp <- GDP[,c("FIPS", 'Countyname','2015 County GDP')]
-
-#Convert columns to numerics for dataframe joins
-
-countygdp$`2015 County GDP` <- as.numeric(countygdp$`2015 County GDP`)
-countygdp$FIPS <- as.numeric(countygdp$FIPS)
-
-#Create a combined file with County GDPs
-#Remeber to join based on BEA ccounty FIPS, b/c this information is from the BEA and will not match the 
-#Census County FIPS exactly. 
-
-GNI_by_Census_tract <- left_join(GNI_by_Census_tract, countygdp, by= c("bea_county_fips"= "FIPS"))
-
-#BEA GDP estimates are in thousands of dollars, so make sure to multiply by 1000
-
-GNI_by_Census_tract$`2015 County GDP` <- (GNI_by_Census_tract$`2015 County GDP`) *1000
-
-######Step 5: Create County and Tract Income Fractions####
-
-GNI_by_Census_tract$Countyname <- NULL
-
-GNI_by_Census_tract$County_GDP_Fraction <- (GNI_by_Census_tract$`2015 County GDP`)/(GNI_by_Census_tract$National_GDP_2015)
-
-GNI_by_Census_tract$Tract_Income_Fraction <- (GNI_by_Census_tract$`Aggregate Tract Income 2015`)/(GNI_by_Census_tract$`Aggregate County Income 2015`)
-
-GNI_by_Census_tract$GNI_per_tract <- (GNI_by_Census_tract$National_GNI_2015)*
-  (GNI_by_Census_tract$County_GDP_Fraction)*
-  (GNI_by_Census_tract$Tract_Income_Fraction)
-
-####Step 6: GNI is taken per capita, so need to divide by population####
-
+#Calculate population of each tract
 
 ctpop <- map_df(us, function(x) {get_acs(geography = "tract", 
-                                         variables = "B15003_001" , year = 2015,
+                                         variables = "S0101_C01_001" , year = 2015,
                                          state = x) })
 
 
@@ -130,13 +56,72 @@ ctpop <- ctpop[c('GEOID','NAME','estimate')] %>%
   rename('2015_Tract_population'= 'estimate')
 
 
-GNI_by_Census_tract <- left_join(GNI_by_Census_tract, ctpop, by = "GEOID")
+GNI_by_Census_tract <- left_join(newaggregate_tract_income_2015, ctpop, by = "GEOID")
 
-GNI_by_Census_tract$GNIppc_per_tract <- (GNI_by_Census_tract$GNI_per_tract)/(GNI_by_Census_tract$'2015_Tract_population')
+GNI_by_Census_tract$GNIppc_per_tract <- (GNI_by_Census_tract$Tract_GNI)/(GNI_by_Census_tract$'2015_Tract_population')
 
-####Step 7: Create the Income Index####
+#Take Tract IDs to Create County FIPS
 
-GNI_by_Census_tract$Income_Index <-((log(GNI_by_Census_tract$GNIppc_per_tract)-log(100))/(log(75000)-log(100)))
+GNI_by_Census_tract$CountyGEOID <- substr(GNI_by_Census_tract$GEOID, 1,5)
 
 
-  
+
+#Download County FIPS to CBSA Corsswalk 
+temp <- tempfile()
+download.file('https://data.nber.org/cbsa-csa-fips-county-crosswalk/cbsa2fipsxw.csv', temp)
+crosswalk <- read_csv(temp, 
+                      col_types = cols(fipsstatecode = col_character(), 
+                                       fipscountycode = col_character()))
+unlink(temp)
+
+
+crosswalk <- crosswalk %>%
+mutate("CountyGEOID"= paste0(fipsstatecode, fipscountycode))%>%
+  rename("countyname"= "countycountyequivalent")
+
+
+#Join Files to get county to cbsa crosswalk
+GNI_by_MSA <- left_join(GNI_by_Census_tract, crosswalk, by = "CountyGEOID")
+
+
+#Download Regional Price Parity File from BEA (https://apps.bea.gov/regional/histdata/releases/1117rpi/index.cfm)
+temp <- tempfile()
+download.file('https://apps.bea.gov/regional/histdata/releases/0917rpi/rpp0917.zip', temp)
+whole_rpp <- read.csv(unz(temp, 'RPP_2008_2015_MSA.csv'))
+unlink(temp)
+
+regional_ppp <- whole_rpp[grep("RPPs: All items",
+                                                    whole_rpp$Description), ]
+
+regional_ppp_2015 <- regional_ppp[,c('GeoFIPS','GeoName','X2015')]
+
+regional_ppp_2015 <- rename(regional_ppp_2015, "2015 MSA PPP"= "X2015")
+
+
+regional_ppp_2015 <- rename(regional_ppp_2015, 
+                            "cbsa"= "GeoFIPS")
+
+regional_ppp_2015$cbsa <- as.numeric(regional_ppp_2015$cbsa)
+
+GNI_MSA_withppp <- left_join(GNI_by_MSA, regional_ppp_2015, by = c("cbsacode"= "cbsa"))
+
+GNI_MSA_withppp$`2015 MSA PPP`[is.na(GNI_MSA_withppp$`2015 MSA PPP`)] <- 87.8
+
+GNI_MSA_withppp$MultiplyPPP <- 1/((GNI_MSA_withppp$`2015 MSA PPP`)/100)
+
+GNI_MSA_withppp$Adjusted_tractGNI <- (GNI_MSA_withppp$Tract_GNI)*
+  (GNI_MSA_withppp$MultiplyPPP)
+
+GNI_MSA_withppp$Adjusted_tract_GNIppc <- (GNI_MSA_withppp$Adjusted_tractGNI)/
+  (GNI_MSA_withppp$`2015_Tract_population`)
+
+#Create Income Index 
+
+income_index <- GNI_MSA_withppp %>% 
+  select( 'GEOID', 'CountyGEOID', 'NAME.x', 12:18,23, '2015_Tract_population',   'GNIppc_per_tract', 'Adjusted_tract_GNIppc') %>% 
+  mutate(adjusted_income_index=  (log(Adjusted_tract_GNIppc) -log(100))/ ((log(75000) - log(100)))) %>%  
+  mutate(unadjusted_income_index=  (log(GNIppc_per_tract) -log(100))/ ((log(75000) - log(100))))
+
+
+#Save File 
+write.csv(income_index, "income_index.csv")

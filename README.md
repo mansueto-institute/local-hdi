@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Neighborhood-Level Human Development Index
 Goal: Calculate the Human Development Index at the Census tract level
 
@@ -16,15 +21,14 @@ The Life Expectancy component of the HDI was calculated using tract-level life e
 and County-Level Life Expectancy Estimates from the Institute of Health Metrics and Evaluation. [(5)](http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
 USALEEP calculated a single tract-level estimate for 2010-2015, and the IHME calculated county-level estimates for every year from 1980 to 2014.
 
-The Education Component of the HDI was calculated using tract level estimates for total population, educational attainment for population over 25 years of age, and school enrollment ratios for population under 25 years old,  from the American Community Survey 5 Year Estimates from 2017.
-These reflected estimates from the 2013-2017 time frame. 
+The Education Component of the HDI was calculated using tract level estimates for total population, educational attainment for population over 25 years of age, and school enrollment ratios for population under 25 years old,  from the American Community Survey 5 Year Estimates from 2015.
+These reflected estimates from the 2010-2015 time frame. 
 Example from Alabama [(6)](https://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?pid=ACS_17_5YR_S1501&prodType=table)  
 The data was extracted using the tidycensus package for the Census Bureau API [(7)](https://walkerke.github.io/tidycensus/articles/basic-usage.html)
 
 The Income Component of the HDI was calculated using data from the US Bureau of Economic Analysis and ACS 5-year estimates. 
-Gross National Income for 2015 (approx $18.7 trillion) was taken from Federal Reserve of St. Louis [(8)](https://fred.stlouisfed.org/series/MKTGNIUSA646NWDB) and World Bank [(9)](https://data.worldbank.org/indicator/NY.GNP.MKTP.CD?locations=US) estimates.
+Gross National Income for 2015 (approx $19 trillion in 2011 $ PPP) was taken the UN Data repository [(9)} ((https://data.un.org/Data.aspx?q=GNI&d=WDI&f=Indicator_Code%3aNY.GNP.MKTP.PP.KD).
 GDP by County estimates for 2012 -2015 was downloaded from the US BEA website. [(10)](https://www.bea.gov/data/gdp/gdp-county) 
-National GDP estimates for 2015, as calculated by the US BEA, were then taken from the Federal Reserve of St. Louis website [(11)](https://fred.stlouisfed.org/series/GDPA)[(12)](https://fred.stlouisfed.org/release/tables?rid=53&eid=41047&od=2015-01-01#)
 County and Census Tract Aggregate Income estimates for 2015, as well as tract level Population estimates, were taken from the American Community Survey 5 Year Estimates from 2015.
 
 ## Methods/Definitions
@@ -35,9 +39,7 @@ To allow comparisons between local US neighborhood HDIs and International HDIs, 
 
 ### Life Expectancy Index
 Census Tract Level estimates of Life expectancy were taken from the USALEEP study.
-These estimates do not include LE estimates for Maine and Wisconsin, which will be released later this year. 
 County-level Life expectancy estimates (calculated by the Institute for Health Metrics and Evaluation) were substituted for tracts that did not have Life Expectancy values calculated by USALEEP. 
-This includes all tracts in Wisconsin and Maine, for the time being. 
 The UNDP life expectancy index was then calculated for each tract. 
 The equation for the index is as follows: 
 
@@ -48,10 +50,10 @@ The equation for the index is as follows:
 ### Income Index 
 
 The UN uses Gross National Income is used to calculate the income index.
-To keep our measures consistent with international standards, the Gross National Income for the US in 2015 was down allocated to each US county based on county share of national GDP. 
-We then down allocated it further to tracts based on aggregate income for each tract over aggregate income for the county. 
+To keep our measures consistent with international standards, the Gross National Income for the US in 2015 was down allocated to each US tract based on tract share of US aggregate income, as reported by the Census Bureau . 
 
-> Tract Level Gross National Income = (2015 US GNI) x  (2015 County GDP/2015 US GDP) x (2015 Census Tract Aggregate Income/ 2015 County Aggregate Income)
+
+> Tract Level Gross National Income = (2015 US GNI) x  (2015 Census Tract Aggregate Income/ 2015 US National Aggregate Income)
 
 These values were then divided by the total population of the tract to get an estimate of GNI per capita at the tract level. 
 
@@ -92,7 +94,7 @@ These values are then summed and then put in the expected years of education ind
 
 > EYSI= EYS/18 
 
-For our study, we calculated the expected education index at the county level and then used the average county index for each tract. This was done to account for the fact that many children in the US often go to school in neighboring census tracts within their county. 
+The expected education index requires all age groups from 5 to 25 to be represented to be calculated properly. There are a number of census tracts with missing age cohorts that cannot have an expected education index value calculated. In these cases, the county expected education index was substituted for the tract index. In the 4 counties which also had incomplete age cohorts (and therefore no expected education index value), the mean years of education was used to calclate the final education index. This is in line with the UN's philosophy that each of the values are "perfectly substitutable." 
 
 #### Calculating Final Education Index
 
@@ -108,13 +110,14 @@ The HDI is a geometric mean of the 3 above indices:
 
 
 ## Code 
+Run Scripts in following order: 
+1. Life Expectancy Index 
+2. Income Index 
+3. Expected Education (Expect_edu) index
+4. Mean Years of Education (mean_edu) index 
+5. Final education (final_edu) index 
+6. HDI Calculation
 
-The code for calculating the Life Expectancy Index can be found here: [Life Expectancy Index](https://github.com/mansueto-institute/local-hdi/blob/master/life_expectancy_index.R)
-The code for calculating the Mean Years of Education Index can be found here: [Mean Years of Education Index](https://github.com/mansueto-institute/local-hdi/blob/master/mean_edu_index.R)
-The code for calculating the Expected Years of Education Index can be found here: [Expected Years of Education Index](https://github.com/mansueto-institute/local-hdi/blob/master/expected_edu_index.R)
-The code for calculating the Final Education Index can be found here:[Final Education Index ](https://github.com/mansueto-institute/local-hdi/blob/master/final_edu_index.R)
-The code for calculating the Income Index can be found here: [Income Index](https://github.com/mansueto-institute/local-hdi/blob/master/income_index.R) 
-The code for calculating the Human Development Index can be found here: [HDI]()
 
 
 ## Output 
@@ -124,3 +127,4 @@ Created by Suraj (Neil) Sheth
 
 ## License 
 MIT
+
