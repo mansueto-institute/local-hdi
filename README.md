@@ -17,7 +17,7 @@ Example from Alabama [(6)](https://factfinder.census.gov/faces/tableservices/jsf
 The data was extracted using the tidycensus package for the Census Bureau API [(7)](https://walkerke.github.io/tidycensus/articles/basic-usage.html)
 
 The Income Component of the HDI was calculated using data from the US Bureau of Economic Analysis and ACS 5-year estimates. 
-Gross National Income for 2015 was taken the UN Data repository [(9)] ((https://data.un.org/Data.aspx?q=GNI&d=WDI&f=Indicator_Code%3aNY.GNP.MKTP.PP.KD).
+Gross National Income for 2015 was taken the UN Data repository [(9)](https://data.un.org/Data.aspx?q=GNI&d=WDI&f=Indicator_Code%3aNY.GNP.MKTP.PP.KD).
 GDP by County estimates for 2012 -2015 was downloaded from the US BEA website. [(10)](https://www.bea.gov/data/gdp/gdp-county) 
 County and Census Tract Aggregate Income estimates for 2015, as well as tract level Population estimates, were taken from the American Community Survey 5 Year Estimates from 2015.
 
