@@ -1,3 +1,7 @@
+#Load Libraries 
+library(tidyverse)
+
+#Arrange component dataframes and calculate final HDI value
 hdi_dataset <- income_index
 
 hdi_dataset2 <- left_join(hdi_dataset, final_edu_index, by = "GEOID")
@@ -12,5 +16,7 @@ final_hdi <- hdi_dataset3 %>%
   mutate(adjusted_hdi= ((adjusted_income_index)*(le_index)* (final_edu_index))^(1/3))
 
 final_hdi$stategeoid <- substr(final_hdi$GEOID, 1,2)
+
+#Save Data
 
 write.csv(final_hdi, "final_hdi.csv")
