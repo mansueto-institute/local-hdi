@@ -34,9 +34,7 @@ newaggregate_tract_income_2015$fraction_of_nat_income <-
   ((newaggregate_tract_income_2015$`Aggregate Tract Income 2015`)/(newaggregate_tract_income_2015$national_aggregate_income))
 
 
-#Create column with 2015 National GNI value in 2011 $ PPP (https://data.un.org/Data.aspx?q=GNI&d=WDI&f=Indicator_Code%3aNY.GNP.MKTP.PP.KD)
-#The UN's 2016 HDI report used GNI in 2011 $ PPP (http://hdr.undp.org/sites/default/files/hdr_2016_statistical_annex.pdf) in 2015, 
-#so that is what we will use here 
+#Create column with 2015 National GNI value in 2011 $ PPP 
 newaggregate_tract_income_2015$National_GNI_2015 <- 19096853723915.5
 
 #Caluclate Tract GNI by multiplying income fraction by National GNI
@@ -84,7 +82,7 @@ mutate("CountyGEOID"= paste0(fipsstatecode, fipscountycode))%>%
 GNI_by_MSA <- left_join(GNI_by_Census_tract, crosswalk, by = "CountyGEOID")
 
 
-#Download Regional Price Parity File from BEA (https://apps.bea.gov/regional/histdata/releases/1117rpi/index.cfm)
+#Download Regional Price Parity File from BEA 
 temp <- tempfile()
 download.file('https://apps.bea.gov/regional/histdata/releases/0917rpi/rpp0917.zip', temp)
 whole_rpp <- read.csv(unz(temp, 'RPP_2008_2015_MSA.csv'))
