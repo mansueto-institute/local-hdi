@@ -36,7 +36,7 @@ Run Scripts in following order:
 ## Output 
 
 ## Author 
-Created by Suraj (Neil) Sheth
+Created by Suraj Sheth and Luis Bettencourt
 
 ## License 
 MIT
