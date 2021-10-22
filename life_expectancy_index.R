@@ -6,8 +6,6 @@ library(readxl)
 library(gdata)
 
 #Download Life Expectancy estimates by County from IHME website 
-#(http://ghdx.healthdata.org/record/ihme-data/united-states-life-expectancy-and-age-specific-mortality-risk-county-1980-2014)
-#(Select the first excel document in the "Files" tab, import with "location" line as first row)
 
 
 url <- 'http://ghdx.healthdata.org/sites/default/files/record-attached-files/IHME_USA_COUNTY_LE_MORTALITY_RISK_1980_2014_NATIONAL_XLSX.zip'
@@ -29,21 +27,18 @@ onlycountyLE  <- newLE %>%
   filter(FIPS >100)
 
 #Shorten the Life expectancy value row to only the first 5 characters, which are the predicted LE 
-#(other numbers are expected range)
 
 onlycountyLE$`Life expectancy, 2014*` <- substr(onlycountyLE$`Life expectancy, 2014*`, 1, 5)
 
 #Convert columns to numerics for manipulation
 onlycountyLE$`Life expectancy, 2014*` <- as.numeric(onlycountyLE$`Life expectancy, 2014*`)
-#onlycountyLE$FIPS <- as.numeric(onlycountyLE$FIPS)
+
 
 #Paste leading zero for some rows of FIPS codes to allow for GEOID intergration
 onlycountyLE$FIPS <- formatC(onlycountyLE$FIPS, width = 5, format = "d", flag = "0")
 
 ##Step 2: CDC Data 
 #Download CDC Dataset on US Life Expectancies at Tract Level 
-#(https://www.cdc.gov/nchs/nvss/usaleep/usaleep.html)
-#It imports all columns as numerics, removing leading zeros from all of the columns- these have to be added back in
 
 temp <- tempfile()
 download.file('https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/NVSS/USALEEP/CSV/US_A.CSV', temp)
@@ -84,8 +79,6 @@ allLE <- percapitaincome[c('GEOID')]
 
 allLE$FIPS <-substr(allLE$GEOID, 1,5)
 
-#allLE$FIPS <- as.numeric(allLE$FIPS)
-#allLE$GEOID <- as.numeric(allLE$GEOID)
 
 #Merge the complete GEOID list with the County Life expectancies and the Tract level Life expectancies
 
@@ -120,5 +113,7 @@ le_index <- finalLE %>%
   select('GEOID', 'FIPS', "LEindex") %>%
   rename("le_index" = "LEindex")
 
+
+#Save Data
 write.csv(le_index, "le_index.csv")
 write.csv(finalLE, "LE_raw_values.csv")
