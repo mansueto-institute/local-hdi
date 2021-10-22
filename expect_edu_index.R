@@ -2,12 +2,6 @@
 library(tidycensus)
 library(tidyverse)
 
-#Load variable names for 2015 - for expected edu index, the data is best organized by the in the school enrollment subject table. 
-#This requires an extra addiion to the tidycensus "load_variables"
-
-
-v15 <- load_variables(2015, "acs5/subject", cache = TRUE)
-view(v15)
 
 #The S1401 table has the information necessary to construct the index 
 
